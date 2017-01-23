@@ -15,12 +15,12 @@ alb_lims <- c(
   #atr---------------------------------------------------------------------------------------------
 
 atr_lims <- c(
-  max(cGeneTable$atr_start[cGeneTable$atr_chr == '2L']),
-  min(cGeneTable$atr_end[cGeneTable$atr_chr == '2L']),
+  min(cGeneTable$atr_start[cGeneTable$atr_chr == '2L']),
+  max(cGeneTable$atr_end[cGeneTable$atr_chr == '2L']),
   max(cGeneTable$atr_start[cGeneTable$atr_chr == '2R']),
   min(cGeneTable$atr_end[cGeneTable$atr_chr == '2R']),
-  min(cGeneTable$atr_start[cGeneTable$atr_chr == '3L']),
-  max(cGeneTable$atr_end[cGeneTable$atr_chr == '3L'])
+  max(cGeneTable$atr_start[cGeneTable$atr_chr == '3L']),
+  min(cGeneTable$atr_end[cGeneTable$atr_chr == '3L'])
 )
 
   #gam---------------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ gam_seq <- dna_seg(data.frame(
 ))
 
 dna_seqs <- list(alb_seq, atr_seq, gam_seq)
-names(dna_seqs) <- c('alb 3L-\\-3R(rev)', 'atr 3L-\\-2R-\\-2L', 'gam 3L-\\-2L')
+names(dna_seqs) <- c('alb 3L↘ | 3R↘', 'atr 2L↗ | 2R↘ | 3L↘', 'gam 2L↘ | 3L↗')
 #plot
 plot_gene_map(
   dna_segs = dna_seqs,

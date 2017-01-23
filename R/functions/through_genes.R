@@ -48,8 +48,6 @@ through_num <- function (genes, order){
         tGenes$tEnd[scf_coords] <- genes[,4] + IR
         tGenes$tChr[scf_coords] <- as.character(order[i, 1])
         
-        #IR <- max(tGenes$tEnd[scf_coords]) + order[i, 4] - max(genes[scf_coords,4])
-        
       } # end if direct
       # if reverse order
       if(order[i, 3]==-1){
@@ -57,7 +55,6 @@ through_num <- function (genes, order){
         tGenes$tEnd[scf_coords] <- order[i, 4] - genes[scf_coords, 3] + IR
         tGenes$tChr[scf_coords] <- as.character(order[i, 1])
         tGenes$tStrand[scf_coords] <- !tGenes$tStrand[scf_coords]
-        #IR <- max(tGenes$tEnd[scf_coords]) + min(genes[scf_coords,3])
         
       } # end if reverse
       IR<- IR + order[i, 4]
