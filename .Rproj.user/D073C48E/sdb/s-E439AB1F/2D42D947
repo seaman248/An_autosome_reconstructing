@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "atr_genes <-  cGeneTable %>%\n  select(atr_ID, atr_scf, atr_start, atr_end, atr_strand)\n\nscf_order_data <- read.csv2('./atr_order.csv')\n\n# Определяем порядок хромосом\nchr_order <- list('2L', '2R', '3L', '3R')\n#\nscf_order <- list()\n# Делаем лист из data.frame'ов для каждой хромосомы \nscf_order <- lapply(chr_order, function(i){\n  scf_order$i<-as.data.frame(scf_order_data[scf_order_data$chr==i,])\n})\n# Изначальная таблица больше не нужна\nrm(scf_order_data)\n\n# \n",
+    "created" : 1485151029033.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "346199466",
+    "id" : "2D42D947",
+    "lastKnownWriteTime" : 1485156316,
+    "last_content_update" : 1485156316648,
+    "path" : "~/prog/r/2chr_genePlot/through_genes.R",
+    "project_path" : "through_genes.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "dGeneTable <- read.csv2('./2chr_alb_atr_sin_gam_dirty.csv', na.strings = c(''), stringsAsFactors = FALSE)\nnames(dGeneTable) <- c(\n  'alb_ID', 'alb_chr', 'alb_start', 'alb_end', 'alb_strand',\n  'atr_ID', 'atr_scf', 'atr_start', 'atr_end',\n  'fun_ID', 'fun_scf', 'fun_start', 'fun_end',\n  'gam_ID', 'gam_chr', 'gam_start', 'gam_end',\n  'sin_ID', 'sin_scf', 'sin_start', 'sin_end',\n  'steph_ID', 'steph_scf', 'steph_start', 'steph_end'\n)\n\n# select only alb, atr and gam columns\ndGeneTable <- dGeneTable %>%\n  select(alb_ID, alb_chr, alb_start, alb_end, alb_strand, atr_ID, atr_scf, atr_start, atr_end, gam_ID, gam_chr, gam_start, gam_end)\n# remove strings with empty cells\ndGeneTable <-  na.omit(dGeneTable)\n\n# remove all duplicates\ndGeneTable <- dGeneTable[!(duplicated(dGeneTable$alb_ID, fromLast = TRUE) | duplicated(dGeneTable$alb_ID)), ]\ndGeneTable <- dGeneTable[!(duplicated(dGeneTable$atr_ID, fromLast = TRUE) | duplicated(dGeneTable$atr_ID)),]\ndGeneTable <- dGeneTable[!(duplicated(dGeneTable$gam_ID, fromLast = TRUE) | duplicated(dGeneTable$gam_ID)),]\n# remove unkn chromosom of gam\ndGeneTable$alb_chr <- as.factor(dGeneTable$alb_chr)\ndGeneTable$atr_scf <- as.factor(dGeneTable$atr_scf)\ndGeneTable$gam_chr <- as.factor(dGeneTable$gam_chr)\n\ndGeneTable <- dGeneTable[which(dGeneTable$gam_chr !='UNKN'),]\n\n# Change rank\nrow.names(dGeneTable) <- 1:nrow(dGeneTable)\n\n# write table to get strand from vectorbase biomart\nwrite.csv2(dGeneTable, 'GeneTableForGetStrand.csv') # using this table for extract strands from biomart\n\n# read data from biomart\natr_strands <- read.csv('./atr_strands.csv')\ngam_strands <- read.csv('./gam_strands.csv')\n\n\n\n# paste this data in exsisting order\ndGeneTable$atr_strand <- atr_strands$Strand[match(dGeneTable$atr_ID, atr_strands$Gene.stable.ID)]\ndGeneTable$gam_strand <- gam_strands$Strand[match(dGeneTable$gam_ID, gam_strands$Gene.stable.ID)]\n\n# reorder columns\ndGeneTable <- dGeneTable[, c(1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 10, 11, 12, 13, 15)]\nrm(atr_strands, gam_strands)\n\n# write clean data\nwrite.csv2(dGeneTable, 'alb_atr_gam-clean.csv')\n\nrm(dGeneTable)\n",
+    "created" : 1485150986991.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3236996039",
+    "id" : "FFC9E334",
+    "lastKnownWriteTime" : 1484938683,
+    "last_content_update" : 1484938683,
+    "path" : "~/prog/r/2chr_genePlot/R/clean_first_data.R",
+    "project_path" : "R/clean_first_data.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
