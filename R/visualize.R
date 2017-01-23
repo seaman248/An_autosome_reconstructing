@@ -1,10 +1,4 @@
-cGeneTable <- read.csv2('alb_atr_gam-cleaner.csv')
-
-# derandomize rank=================================================================================
-cGeneTable$Rank <- seq_along(cGeneTable$Rank)
-
-# remove strings with X-chr of gam=================================================================
-cGeneTable <- cGeneTable[cGeneTable$gam_chr == '2L' | cGeneTable$gam_chr == '3L', ]
+source('./R/2nd clean.R')
 
 # add through coordinate for every sp==============================================================
   #alb---------------------------------------------------------------------------------------------
@@ -19,25 +13,14 @@ alb_lims <- c(
   min(cGeneTable$alb_start[cGeneTable$alb_chr=='3R'])
   )
   #atr---------------------------------------------------------------------------------------------
-cGeneTable$atr_start[cGeneTable$atr_chr=='2R'] <- 
-  cGeneTable$atr_start[cGeneTable$atr_chr=='2R'] + max(cGeneTable$atr_end[cGeneTable$atr_chr=='3L'])
-
-cGeneTable$atr_end[cGeneTable$atr_chr=='2R'] <-d
-  cGeneTable$atr_end[cGeneTable$atr_chr=='2R'] + max(cGeneTable$atr_end[cGeneTable$atr_chr=='3L'])
-
-cGeneTable$atr_start[cGeneTable$atr_chr=='2L'] <- 
-  cGeneTable$atr_start[cGeneTable$atr_chr=='2L'] + max(cGeneTable$atr_end[cGeneTable$atr_chr=='2R'])
-
-cGeneTable$atr_end[cGeneTable$atr_chr=='2L'] <-
-  cGeneTable$atr_end[cGeneTable$atr_chr=='2L'] + max(cGeneTable$atr_end[cGeneTable$atr_chr=='2R'])
 
 atr_lims <- c(
+  max(cGeneTable$atr_start[cGeneTable$atr_chr == '2L']),
+  min(cGeneTable$atr_end[cGeneTable$atr_chr == '2L']),
+  max(cGeneTable$atr_start[cGeneTable$atr_chr == '2R']),
+  min(cGeneTable$atr_end[cGeneTable$atr_chr == '2R']),
   min(cGeneTable$atr_start[cGeneTable$atr_chr == '3L']),
-  max(cGeneTable$atr_end[cGeneTable$atr_chr == '3L']),
-  min(cGeneTable$atr_start[cGeneTable$atr_chr == '2R']),
-  max(cGeneTable$atr_end[cGeneTable$atr_chr == '2R']),
-  min(cGeneTable$atr_start[cGeneTable$atr_chr == '2L']),
-  max(cGeneTable$atr_end[cGeneTable$atr_chr == '2L'])
+  max(cGeneTable$atr_end[cGeneTable$atr_chr == '3L'])
 )
 
   #gam---------------------------------------------------------------------------------------------
@@ -49,10 +32,10 @@ cGeneTable$gam_end[cGeneTable$gam_chr=='2L'] <-
   cGeneTable$gam_end[cGeneTable$gam_chr=='2L'] + max(cGeneTable$gam_end[cGeneTable$gam_chr=='3L'])
 
 gam_lims <- c(
+  max(cGeneTable$gam_start[cGeneTable$gam_chr=='2L']),
+  min(cGeneTable$gam_end[cGeneTable$gam_chr=='2L']),
   min(cGeneTable$gam_start[cGeneTable$gam_chr=='3L']),
-  max(cGeneTable$gam_end[cGeneTable$gam_chr=='3L']),
-  min(cGeneTable$gam_start[cGeneTable$gam_chr=='2L']),
-  max(cGeneTable$gam_end[cGeneTable$gam_chr=='2L'])
+  max(cGeneTable$gam_end[cGeneTable$gam_chr=='3L'])
 )
 
 #create comparisons
@@ -87,7 +70,7 @@ atr_seq <- dna_seg(data.frame(
   name=cGeneTable$atr_ID,
   start=cGeneTable$atr_start,
   end=cGeneTable$atr_end,
-  strand=cGeneTable$atr_strand,
+  strand=as.integer(cGeneTable$atr_strand),
   col=atr_col,
   gene_type=rep('blocks', nrow(cGeneTable))
 ))

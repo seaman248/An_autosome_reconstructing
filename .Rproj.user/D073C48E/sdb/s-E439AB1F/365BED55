@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "strandToLogic <- function(strand){\n  if(!is.na(strand)){\n    if(strand==-1){\n      return(FALSE)\n    }\n    if(strand==1){\n      return(TRUE)\n    }\n  } else {\n    return(NA)\n  }\n}\nlogicToStrand <- function(logic){\n  if(!is.na(logic)){\n    if(logic){\n      return(1)\n    } else {\n      return(-1)\n    }\n  }\n}\n\n\n# genes: data.frame - ID, scf, start, end, strand\n# order: data.frame - chr, scf, strand, size\n\nthrough_num <- function (genes, order){\n  # define incrementor\n  IR <- 0\n  tGenes <- data.frame(\n    tID = genes[,1]\n  )\n  tGenes$tStrand <- tGenes$tEnd <- tGenes$tStart <- tGenes$tChr <- rep(NA, nrow(genes))\n  tGenes$tStrand <- as.logical(lapply(genes[,5], strandToLogic))\n  for(i in 1:nrow(order)){\n    # find all cells with those scf\n    scf_coords <- which(\n      !is.na(\n        match(genes[,2], order[i, 2])\n      )\n    )\n    \n    # if scf exist\n    if(is.finite(max(genes[scf_coords,4]))){\n      # if direct order\n      if(order[i,3]==1){\n        tGenes$tStart[scf_coords] <- genes[,3] + IR\n        tGenes$tEnd[scf_coords] <- genes[,4] + IR\n        tGenes$tChr[scf_coords] <- as.character(order[i, 1])\n        \n        #IR <- max(tGenes$tEnd[scf_coords]) + order[i, 4] - max(genes[scf_coords,4])\n        \n      } # end if direct\n      # if reverse order\n      if(order[i, 3]==-1){\n        tGenes$tStart[scf_coords] <- order[i, 4] - genes[scf_coords, 4] + IR\n        tGenes$tEnd[scf_coords] <- order[i, 4] - genes[scf_coords, 3] + IR\n        tGenes$tChr[scf_coords] <- as.character(order[i, 1])\n        tGenes$tStrand[scf_coords] <- !tGenes$tStrand[scf_coords]\n        #IR <- max(tGenes$tEnd[scf_coords]) + min(genes[scf_coords,3])\n        \n      } # end if reverse\n      IR<- IR + order[i, 4]\n    } # end if exist\n  } # end for\n  tGenes$tStrand <- as.integer(lapply(tGenes$tStrand, logicToStrand))\n  return(tGenes)\n}\n\n",
+    "created" : 1485181252633.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2266912172",
+    "id" : "365BED55",
+    "lastKnownWriteTime" : 1485181356,
+    "last_content_update" : 1485181356008,
+    "path" : "~/prog/r/2chr_genePlot/R/functions/through_genes.R",
+    "project_path" : "R/functions/through_genes.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

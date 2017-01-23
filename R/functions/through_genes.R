@@ -1,0 +1,69 @@
+strandToLogic <- function(strand){
+  if(!is.na(strand)){
+    if(strand==-1){
+      return(FALSE)
+    }
+    if(strand==1){
+      return(TRUE)
+    }
+  } else {
+    return(NA)
+  }
+}
+logicToStrand <- function(logic){
+  if(!is.na(logic)){
+    if(logic){
+      return(1)
+    } else {
+      return(-1)
+    }
+  }
+}
+
+
+# genes: data.frame - ID, scf, start, end, strand
+# order: data.frame - chr, scf, strand, size
+
+through_num <- function (genes, order){
+  # define incrementor
+  IR <- 0
+  tGenes <- data.frame(
+    tID = genes[,1]
+  )
+  tGenes$tStrand <- tGenes$tEnd <- tGenes$tStart <- tGenes$tChr <- rep(NA, nrow(genes))
+  tGenes$tStrand <- as.logical(lapply(genes[,5], strandToLogic))
+  for(i in 1:nrow(order)){
+    # find all cells with those scf
+    scf_coords <- which(
+      !is.na(
+        match(genes[,2], order[i, 2])
+      )
+    )
+    
+    # if scf exist
+    if(is.finite(max(genes[scf_coords,4]))){
+      # if direct order
+      if(order[i,3]==1){
+        tGenes$tStart[scf_coords] <- genes[,3] + IR
+        tGenes$tEnd[scf_coords] <- genes[,4] + IR
+        tGenes$tChr[scf_coords] <- as.character(order[i, 1])
+        
+        #IR <- max(tGenes$tEnd[scf_coords]) + order[i, 4] - max(genes[scf_coords,4])
+        
+      } # end if direct
+      # if reverse order
+      if(order[i, 3]==-1){
+        tGenes$tStart[scf_coords] <- order[i, 4] - genes[scf_coords, 4] + IR
+        tGenes$tEnd[scf_coords] <- order[i, 4] - genes[scf_coords, 3] + IR
+        tGenes$tChr[scf_coords] <- as.character(order[i, 1])
+        tGenes$tStrand[scf_coords] <- !tGenes$tStrand[scf_coords]
+        #IR <- max(tGenes$tEnd[scf_coords]) + min(genes[scf_coords,3])
+        
+      } # end if reverse
+      IR<- IR + order[i, 4]
+    } # end if exist
+  } # end for
+  tGenes$tStrand <- as.integer(lapply(tGenes$tStrand, logicToStrand))
+  return(tGenes)
+}
+

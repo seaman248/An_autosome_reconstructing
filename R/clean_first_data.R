@@ -1,4 +1,4 @@
-dGeneTable <- read.csv2('./2chr_alb_atr_sin_gam_dirty.csv', na.strings = c(''), stringsAsFactors = FALSE)
+dGeneTable <- read.csv2('./data/2chr_alb_atr_sin_gam_dirty.csv', na.strings = c(''), stringsAsFactors = FALSE)
 names(dGeneTable) <- c(
   'alb_ID', 'alb_chr', 'alb_start', 'alb_end', 'alb_strand',
   'atr_ID', 'atr_scf', 'atr_start', 'atr_end',
@@ -29,11 +29,11 @@ dGeneTable <- dGeneTable[which(dGeneTable$gam_chr !='UNKN'),]
 row.names(dGeneTable) <- 1:nrow(dGeneTable)
 
 # write table to get strand from vectorbase biomart
-write.csv2(dGeneTable, 'GeneTableForGetStrand.csv') # using this table for extract strands from biomart
+write.csv2(dGeneTable, './data/GeneTableForGetStrand.csv') # using this table for extract strands from biomart
 
 # read data from biomart
-atr_strands <- read.csv('./atr_strands.csv')
-gam_strands <- read.csv('./gam_strands.csv')
+atr_strands <- read.csv('./data/atr_strands.csv')
+gam_strands <- read.csv('./data/gam_strands.csv')
 
 
 
@@ -46,6 +46,6 @@ dGeneTable <- dGeneTable[, c(1, 2, 3, 4, 5, 6, 7, 8, 9, 14, 10, 11, 12, 13, 15)]
 rm(atr_strands, gam_strands)
 
 # write clean data
-write.csv2(dGeneTable, 'alb_atr_gam-clean.csv')
+#write.csv2(dGeneTable, './data/alb_atr_gam-clean.csv')
 
-rm(dGeneTable)
+#rm(dGeneTable)

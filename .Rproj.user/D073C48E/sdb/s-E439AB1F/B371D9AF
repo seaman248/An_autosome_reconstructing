@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "source('./R/2nd clean.R')\n\n# add through coordinate for every sp==============================================================\n  #alb---------------------------------------------------------------------------------------------\ncGeneTable$alb_start[cGeneTable$alb_chr=='3R'] <- \n  cGeneTable$alb_start[cGeneTable$alb_chr=='3R'] + max(cGeneTable$alb_end[cGeneTable$alb_chr=='3L'])\ncGeneTable$alb_end[cGeneTable$alb_chr=='3R'] <- \n  cGeneTable$alb_end[cGeneTable$alb_chr=='3R'] + max(cGeneTable$alb_end[cGeneTable$alb_chr=='3L'])\nalb_lims <- c(\n  max(cGeneTable$alb_start[cGeneTable$alb_chr=='3L']), \n  min(cGeneTable$alb_end[cGeneTable$alb_chr=='3L']), \n  max(cGeneTable$alb_end[cGeneTable$alb_chr=='3R']),\n  min(cGeneTable$alb_start[cGeneTable$alb_chr=='3R'])\n  )\n  #atr---------------------------------------------------------------------------------------------\n\natr_lims <- c(\n  max(cGeneTable$atr_start[cGeneTable$atr_chr == '2L']),\n  min(cGeneTable$atr_end[cGeneTable$atr_chr == '2L']),\n  max(cGeneTable$atr_start[cGeneTable$atr_chr == '2R']),\n  min(cGeneTable$atr_end[cGeneTable$atr_chr == '2R']),\n  min(cGeneTable$atr_start[cGeneTable$atr_chr == '3L']),\n  max(cGeneTable$atr_end[cGeneTable$atr_chr == '3L'])\n)\n\n  #gam---------------------------------------------------------------------------------------------\n\ncGeneTable$gam_start[cGeneTable$gam_chr=='2L'] <- \n  cGeneTable$gam_start[cGeneTable$gam_chr=='2L'] + max(cGeneTable$gam_end[cGeneTable$gam_chr=='3L'])\n\ncGeneTable$gam_end[cGeneTable$gam_chr=='2L'] <- \n  cGeneTable$gam_end[cGeneTable$gam_chr=='2L'] + max(cGeneTable$gam_end[cGeneTable$gam_chr=='3L'])\n\ngam_lims <- c(\n  max(cGeneTable$gam_start[cGeneTable$gam_chr=='2L']),\n  min(cGeneTable$gam_end[cGeneTable$gam_chr=='2L']),\n  min(cGeneTable$gam_start[cGeneTable$gam_chr=='3L']),\n  max(cGeneTable$gam_end[cGeneTable$gam_chr=='3L'])\n)\n\n#create comparisons\n\nalb_atr_comparison <- as.comparison(data.frame(\n  start1=cGeneTable$alb_start, end1=cGeneTable$alb_end,\n  start2=cGeneTable$atr_start, end2=cGeneTable$atr_end\n))\n\natr_gam_comparition <- as.comparison(data.frame(\n  start1=cGeneTable$atr_start, end1=cGeneTable$atr_end,\n  start2=cGeneTable$gam_start, end2=cGeneTable$gam_end\n))\n\n# create dna_seqs\nalb_col <- rep('red', nrow(cGeneTable))\nalb_col[cGeneTable$alb_strand=='-1'] <- 'blue'\n\nalb_seq <- dna_seg(data.frame(\n  name=cGeneTable$alb_ID,\n  start=cGeneTable$alb_start,\n  end=cGeneTable$alb_end,\n  strand=cGeneTable$alb_strand,\n  col=alb_col,\n  gene_type=rep('blocks', nrow(cGeneTable))\n))\n\natr_col <- rep('red', nrow(cGeneTable))\natr_col[cGeneTable$atr_strand=='-1'] <- 'blue'\n\natr_seq <- dna_seg(data.frame(\n  name=cGeneTable$atr_ID,\n  start=cGeneTable$atr_start,\n  end=cGeneTable$atr_end,\n  strand=as.integer(cGeneTable$atr_strand),\n  col=atr_col,\n  gene_type=rep('blocks', nrow(cGeneTable))\n))\n\ngam_col <- rep('red', nrow(cGeneTable))\ngam_col[cGeneTable$gam_strand=='-1'] <- 'blue'\n\ngam_seq <- dna_seg(data.frame(\n  name=cGeneTable$gam_ID,\n  start=cGeneTable$gam_start,\n  end=cGeneTable$gam_end,\n  strand=cGeneTable$gam_strand,\n  col=gam_col,\n  gene_type=rep('blocks', nrow(cGeneTable))\n))\n\ndna_seqs <- list(alb_seq, atr_seq, gam_seq)\nnames(dna_seqs) <- c('alb 3L-\\\\-3R(rev)', 'atr 3L-\\\\-2R-\\\\-2L', 'gam 3L-\\\\-2L')\n#plot\nplot_gene_map(\n  dna_segs = dna_seqs,\n  comparisons = list(alb_atr_comparison, atr_gam_comparition),\n  xlims = list(alb_lims, atr_lims, gam_lims)\n)\n",
+    "created" : 1485181526828.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2628888356",
+    "id" : "B371D9AF",
+    "lastKnownWriteTime" : 1485181243,
+    "last_content_update" : 1485181243,
+    "path" : "~/prog/r/2chr_genePlot/R/visualize.R",
+    "project_path" : "R/visualize.R",
+    "properties" : {
+        "source_window_id" : ""
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
