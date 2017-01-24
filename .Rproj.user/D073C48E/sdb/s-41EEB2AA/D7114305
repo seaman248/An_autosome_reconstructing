@@ -1,20 +1,20 @@
 {
     "collab_server" : "",
     "contents" : "source('./R/clean_first_data.R')\nsource('./R/functions/through_genes.R')\n\n# generate atr through coordinates of genes\n\natr_genes <-  dGeneTable %>%\n  select(atr_ID, atr_scf, atr_start, atr_end, atr_strand)\n\natr_scf_order <- read.csv2('./data/atr_order.csv')\nsum(atr_scf_order$Size)\n\natr_genes <- through_num(atr_genes, atr_scf_order)\nmax(na.omit(atr_genes$tEnd))\n\n# insert atr_genes into GENETABLE\n\ncGeneTable <- dGeneTable[,c(1:5, 11:15)]\nrm(dGeneTable)\ncGeneTable[,11:15] <- atr_genes\nnames(cGeneTable) <- c(names(cGeneTable[,1:10]), 'atr_ID', 'atr_chr', 'atr_start', 'atr_end', 'atr_strand')\nrm(atr_genes)\n# clean data\ncGeneTable <- na.omit(cGeneTable)\n\ncGeneTable <- cGeneTable %>%\n  filter(gam_chr=='3L'|gam_chr=='2L', atr_chr!='3R')\n",
-    "created" : 1485172363178.000,
+    "created" : 1485236427300.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
     "hash" : "3258737083",
-    "id" : "B604972B",
+    "id" : "D7114305",
     "lastKnownWriteTime" : 1485181190,
-    "last_content_update" : 1485181190053,
+    "last_content_update" : 1485181190,
     "path" : "~/prog/r/2chr_genePlot/R/2nd clean.R",
     "project_path" : "R/2nd clean.R",
     "properties" : {
         "tempName" : "Untitled1"
     },
-    "relative_order" : 3,
+    "relative_order" : 2,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"
