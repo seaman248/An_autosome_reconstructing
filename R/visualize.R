@@ -1,15 +1,4 @@
 source('./R/2nd clean.R')
-<<<<<<< HEAD
-source('./R/functions/xlims_generator.R')
-source('./R/functions/annot_generator.R')
-
-# add through coordinate for every sp==============================================================
-  #alb---------------------------------------------------------------------------------------------
-cGeneTable$alb_start[cGeneTable$alb_chr=='3L'] <- 
-  cGeneTable$alb_start[cGeneTable$alb_chr=='3L'] + max(cGeneTable$alb_end[cGeneTable$alb_chr=='3R'])
-cGeneTable$alb_end[cGeneTable$alb_chr=='3L'] <- 
-  cGeneTable$alb_end[cGeneTable$alb_chr=='3L'] + max(cGeneTable$alb_end[cGeneTable$alb_chr=='3R'])
-=======
 source('./R/functions/xlimsGen.R')
 source('./R/functions/autoGen.R')
 # add through coordinate for every sp==============================================================
@@ -18,20 +7,11 @@ cGeneTable$alb_start[cGeneTable$alb_chr=='3R'] <-
   cGeneTable$alb_start[cGeneTable$alb_chr=='3R'] + max(cGeneTable$alb_end[cGeneTable$alb_chr=='3L'])
 cGeneTable$alb_end[cGeneTable$alb_chr=='3R'] <- 
   cGeneTable$alb_end[cGeneTable$alb_chr=='3R'] + max(cGeneTable$alb_end[cGeneTable$alb_chr=='3L'])
->>>>>>> e02376e
 
 alb_chr_order <- c('3L', '3R')
 alb_chr_strand <- c(FALSE, FALSE)
 
 alb_lims <- xlimsGen(alb_chr_order, alb_chr_strand, cGeneTable$alb_start, cGeneTable$alb_end, cGeneTable$alb_chr)
-<<<<<<< HEAD
-
-alb_annot <- annot_gen(alb_lims, alb_chr_order)
-
-rm(alb_chr_order, alb_chr_strand)
-  #atr---------------------------------------------------------------------------------------------
-
-=======
 alb_annot <- annot_gen(alb_lims, alb_chr_order)
 
 atr_2R_genes <- cGeneTable[cGeneTable$atr_chr=='2R',]
@@ -43,17 +23,7 @@ atr_chr_strand <- c(FALSE, FALSE, TRUE)
 
 atr_lims <- xlimsGen(atr_chr_order, atr_chr_strand, cGeneTable$atr_start, cGeneTable$atr_end, cGeneTable$atr_chr)
 atr_annot <- annot_gen(atr_lims, atr_chr_order)
->>>>>>> e02376e
 
-atr_chr_order <- c('2L', '2R', '3L')
-
-atr_chr_strand <- c(TRUE, FALSE, FALSE)
-
-atr_lims <- xlimsGen(atr_chr_order, atr_chr_strand, cGeneTable$atr_start, cGeneTable$atr_end, cGeneTable$atr_chr)
-
-atr_annot <- annot_gen(atr_lims, atr_chr_order)
-
-rm(atr_chr_order, atr_chr_strand)
   #gam---------------------------------------------------------------------------------------------
 
 cGeneTable$gam_start[cGeneTable$gam_chr=='2L'] <- 
@@ -63,20 +33,10 @@ cGeneTable$gam_end[cGeneTable$gam_chr=='2L'] <-
   cGeneTable$gam_end[cGeneTable$gam_chr=='2L'] + max(cGeneTable$gam_end[cGeneTable$gam_chr=='3L'])
 
 gam_chr_order <- c('2L', '3L')
-<<<<<<< HEAD
-gam_chr_strand <- c(FALSE, TRUE)
-
-gam_lims <- xlimsGen(gam_chr_order, gam_chr_strand, cGeneTable$gam_star, cGeneTable$gam_end, cGeneTable$gam_chr)
-
-gam_annot <- annot_gen(gam_lims, gam_chr_order)
-
-rm(gam_chr_order, gam_chr_strand)
-=======
 gam_chr_strand <- c(FALSE, FALSE)
 
 gam_lims <- xlimsGen(gam_chr_order, gam_chr_strand, cGeneTable$gam_start, cGeneTable$gam_end, cGeneTable$gam_chr)
 gam_annot <- annot_gen(gam_lims, gam_chr_order)
->>>>>>> e02376e
 #create comparisons
 
 alb_atr_comparison <- as.comparison(data.frame(
@@ -133,13 +93,7 @@ plot_gene_map(
   dna_segs = dna_seqs,
   annotations = list(alb_annot, atr_annot, gam_annot),
   comparisons = list(alb_atr_comparison, atr_gam_comparition),
-<<<<<<< HEAD
-  annotations = list(alb_annot, atr_annot, gam_annot),
-  xlims = list(alb_lims, atr_lims, gam_lims),
-  scale = FALSE, dna_seg_scale = TRUE, gene_type = 'side_blocks'
-=======
   xlims = list(alb_lims, atr_lims, gam_lims),
   scale = FALSE, dna_seg_scale = TRUE,
   gene_type = 'side_blocks', annotation_height = 2, annotation_cex = 1
->>>>>>> e02376e
 )
