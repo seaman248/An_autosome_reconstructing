@@ -10,7 +10,7 @@ atr_scf_order <- read.csv2('./data/atr_order.csv')
 sum(atr_scf_order$Size)
 
 atr_genes <- through_num(atr_genes, atr_scf_order)
-max(na.omit(atr_genes$tEnd))
+max(na.omit(atr_genes2$tEnd))
 
 # insert atr_genes into GENETABLE
 
