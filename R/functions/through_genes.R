@@ -27,11 +27,11 @@ logicToStrand <- function(logic){
 through_num <- function (genes, order){
   # define incrementor
   IR <- 0
-  tGenes <- data.frame(
-    tID = genes[,1]
-  )
-  tGenes$tStrand <- tGenes$tEnd <- tGenes$tStart <- tGenes$tChr <- rep(NA, nrow(genes))
-  tGenes$tStrand <- as.logical(lapply(genes[,5], strandToLogic))
+  
+  order <- order[which(order[,2] %in% genes[,2]),]
+  tGenes <- data.frame(matrix(NA, ncol = 5, nrow = nrow(genes)))
+  names(tGenes) <- c('tID', 'tChr', 'tStart', 'tEnd', 'tStrand')
+  tGenes$tID <- genes[,1]
   for(i in 1:nrow(order)){
     # find all cells with those scf
     scf_coords <- which(
@@ -44,23 +44,31 @@ through_num <- function (genes, order){
     if(is.finite(max(genes[scf_coords,4]))){
       # if direct order
       if(order[i,3]==1){
-        tGenes$tStart[scf_coords] <- genes[,3] + IR
-        tGenes$tEnd[scf_coords] <- genes[,4] + IR
+        tGenes$tStart[scf_coords] <- genes[scf_coords,3] + IR
+        tGenes$tEnd[scf_coords] <- genes[scf_coords,4] + IR
         tGenes$tChr[scf_coords] <- as.character(order[i, 1])
+<<<<<<< HEAD
         
+=======
+        tGenes$tStrand[scf_coords] <- genes[scf_coords,5]
+>>>>>>> e02376e
       } # end if direct
       # if reverse order
       if(order[i, 3]==-1){
         tGenes$tStart[scf_coords] <- order[i, 4] - genes[scf_coords, 4] + IR
         tGenes$tEnd[scf_coords] <- order[i, 4] - genes[scf_coords, 3] + IR
         tGenes$tChr[scf_coords] <- as.character(order[i, 1])
+<<<<<<< HEAD
         tGenes$tStrand[scf_coords] <- !tGenes$tStrand[scf_coords]
         
+=======
+        tGenes$tStrand[scf_coords] <- genes[scf_coords,5]*(-1)
+
+>>>>>>> e02376e
       } # end if reverse
       IR<- IR + order[i, 4]
     } # end if exist
   } # end for
-  tGenes$tStrand <- as.integer(lapply(tGenes$tStrand, logicToStrand))
   return(tGenes)
 }
 

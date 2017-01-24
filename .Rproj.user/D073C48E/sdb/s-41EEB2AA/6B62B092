@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1485247543042.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "6B62B092",
+    "lastKnownWriteTime" : 7009345004543934470,
+    "last_content_update" : 1485247543042,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "y4rbnndaef",
+        "caption" : "atr_genes2",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=atr_genes2&cache_key=y4rbnndaef",
+        "displayedObservations" : 1002,
+        "environment" : "",
+        "object" : "atr_genes2",
+        "totalObservations" : 1002,
+        "variables" : 5
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
