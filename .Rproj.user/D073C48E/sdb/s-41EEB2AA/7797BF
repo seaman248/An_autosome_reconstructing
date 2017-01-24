@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1485266512405.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "7797BF",
+    "lastKnownWriteTime" : 4294967302,
+    "last_content_update" : 1485266512405,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "rne474ozln",
+        "caption" : "cGeneTable",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=cGeneTable&cache_key=rne474ozln",
+        "displayedObservations" : 957,
+        "environment" : "",
+        "object" : "cGeneTable",
+        "totalObservations" : 957,
+        "variables" : 15
+    },
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

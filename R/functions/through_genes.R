@@ -1,26 +1,3 @@
-strandToLogic <- function(strand){
-  if(!is.na(strand)){
-    if(strand==-1){
-      return(FALSE)
-    }
-    if(strand==1){
-      return(TRUE)
-    }
-  } else {
-    return(NA)
-  }
-}
-logicToStrand <- function(logic){
-  if(!is.na(logic)){
-    if(logic){
-      return(1)
-    } else {
-      return(-1)
-    }
-  }
-}
-
-
 # genes: data.frame - ID, scf, start, end, strand
 # order: data.frame - chr, scf, strand, size
 
@@ -47,24 +24,17 @@ through_num <- function (genes, order){
         tGenes$tStart[scf_coords] <- genes[scf_coords,3] + IR
         tGenes$tEnd[scf_coords] <- genes[scf_coords,4] + IR
         tGenes$tChr[scf_coords] <- as.character(order[i, 1])
-<<<<<<< HEAD
-        
-=======
         tGenes$tStrand[scf_coords] <- genes[scf_coords,5]
->>>>>>> e02376e
       } # end if direct
       # if reverse order
       if(order[i, 3]==-1){
         tGenes$tStart[scf_coords] <- order[i, 4] - genes[scf_coords, 4] + IR
         tGenes$tEnd[scf_coords] <- order[i, 4] - genes[scf_coords, 3] + IR
         tGenes$tChr[scf_coords] <- as.character(order[i, 1])
-<<<<<<< HEAD
         tGenes$tStrand[scf_coords] <- !tGenes$tStrand[scf_coords]
         
-=======
         tGenes$tStrand[scf_coords] <- genes[scf_coords,5]*(-1)
 
->>>>>>> e02376e
       } # end if reverse
       IR<- IR + order[i, 4]
     } # end if exist
