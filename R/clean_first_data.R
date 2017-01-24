@@ -1,3 +1,6 @@
+library('dplyr')
+library('genoPlotR')
+
 dGeneTable <- read.csv2('./data/2chr_alb_atr_sin_gam_dirty.csv', na.strings = c(''), stringsAsFactors = FALSE)
 names(dGeneTable) <- c(
   'alb_ID', 'alb_chr', 'alb_start', 'alb_end', 'alb_strand',
