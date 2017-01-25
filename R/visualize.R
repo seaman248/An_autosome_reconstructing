@@ -1,7 +1,6 @@
 source('./R/2nd clean.R')
 source('./R/functions/xlimsGen.R')
 source('./R/functions/autoGen.R')
-source('./R/functions/annot_generator.R')
 
 # add through coordinate for every sp==============================================================
   #alb---------------------------------------------------------------------------------------------
@@ -95,7 +94,7 @@ dna_seqs <- list(alb_seq, atr_seq, gam_seq)
 names(dna_seqs) <- c('An. albimanus', 'An. atroparvus', 'An. gambiae')
 #plot
 
-plot <- plot_gene_map(
+plot_gene_map(
   dna_segs = dna_seqs,
   annotations = list(alb_annot, atr_annot, gam_annot),
   comparisons = list(alb_atr_comparison, atr_gam_comparition),
